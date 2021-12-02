@@ -22,6 +22,15 @@ func CountBoolIf(condition bool) func(bool) int {
 	}
 }
 
+func Add(nums ...int) int {
+	total := 0
+	for _, n := range nums {
+		total += n
+	}
+
+	return total
+}
+
 func main() {
 	var err error
 
@@ -44,8 +53,18 @@ func main() {
 	counter := CountBoolIf(true)
 
 	count := 0
-	for i := 0; i < len(depths) - 1; i++ {
+	for i := 0; i < len(depths)-1; i++ {
 		count = counter(IsHigherNumber(depths[i], depths[i+1]))
 	}
-	print(count)
+	log.Printf("Part One Answer: %d", count)
+
+	counter = CountBoolIf(true)
+	count = 0
+	for i := 0; i < len(depths)-1; i++ {
+		count = counter(IsHigherNumber(
+			Add(depths[i:i+3]...),
+			Add(depths[i+1:i+4]...),
+		))
+	}
+	log.Printf("Part Two Answer: %d", count)
 }
