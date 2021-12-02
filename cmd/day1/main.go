@@ -6,8 +6,8 @@ import (
 	"log"
 )
 
-func HigherOrLower(first int, second int) bool {
-	return second > first
+func IsHigherNumber(lower int, higher int) bool {
+	return higher > lower
 }
 
 func CountBoolIf(condition bool) func(bool) int {
@@ -45,7 +45,7 @@ func main() {
 
 	count := 0
 	for i := 0; i < len(depths) - 1; i++ {
-		count = counter(HigherOrLower(depths[i], depths[i+1]))
+		count = counter(IsHigherNumber(depths[i], depths[i+1]))
 	}
 	print(count)
 }
