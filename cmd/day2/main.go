@@ -10,6 +10,7 @@ import (
 type Submarine struct {
 	horizontal int
 	depth      int
+	aim        int
 	commands   map[string]SubmarineCommand
 }
 
@@ -43,6 +44,19 @@ func SurfaceCommand(s *Submarine, n int) {
 	s.depth -= n
 }
 
+func ForwardAimcommand(s *Submarine, n int) {
+	s.horizontal += n
+	s.depth += n * s.aim
+}
+
+func AimDownCommand(s *Submarine, n int) {
+	s.aim += n
+}
+
+func AimUpCommand(s *Submarine, n int) {
+	s.aim -= n
+}
+
 func main() {
 	var err error
 
@@ -61,7 +75,8 @@ func main() {
 		commands: map[string]SubmarineCommand{
 			"forward": ForwardCommand,
 			"down":    DiveCommand,
-			"up":      SurfaceCommand},
+			"up":      SurfaceCommand,
+		},
 	}
 
 	for _, c := range commands {
@@ -71,4 +86,20 @@ func main() {
 		}
 	}
 	log.Printf("Part One Answer: %d", sub.MultiplyHorizontalByDepth())
+
+	subAim := Submarine{
+		commands: map[string]SubmarineCommand{
+			"forward": ForwardAimcommand,
+			"down":    AimDownCommand,
+			"up":      AimUpCommand,
+		},
+	}
+
+	for _, c := range commands {
+		err = subAim.Execute(c)
+		if err != nil {
+			return
+		}
+	}
+	log.Printf("Part Two Answer: %d", subAim.MultiplyHorizontalByDepth())
 }
