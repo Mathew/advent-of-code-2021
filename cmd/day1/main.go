@@ -1,14 +1,11 @@
 package main
 
 import (
+	"advent-of-code-2021/internal/comparators"
 	"advent-of-code-2021/internal/converters"
 	"advent-of-code-2021/internal/files"
 	"log"
 )
-
-func IsHigherNumber(lower int, higher int) bool {
-	return higher > lower
-}
 
 func CountBoolIf(condition bool) func(bool) int {
 	count := 0
@@ -54,14 +51,14 @@ func main() {
 
 	count := 0
 	for i := 0; i < len(depths)-1; i++ {
-		count = counter(IsHigherNumber(depths[i], depths[i+1]))
+		count = counter(comparators.IsHigherNumber(depths[i], depths[i+1]))
 	}
 	log.Printf("Part One Answer: %d", count)
 
 	counter = CountBoolIf(true)
 	count = 0
 	for i := 0; i < len(depths)-1; i++ {
-		count = counter(IsHigherNumber(
+		count = counter(comparators.IsHigherNumber(
 			Add(depths[i:i+3]...),
 			Add(depths[i+1:i+4]...),
 		))
