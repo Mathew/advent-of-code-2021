@@ -1,8 +1,10 @@
 package converters
 
 import (
-"github.com/pkg/errors"
+	"advent-of-code-2021/internal/structures"
+	"github.com/pkg/errors"
 "strconv"
+	"strings"
 )
 
 func StringToInt(s string) (int, error) {
@@ -28,3 +30,27 @@ func StringsToInts(ss ...string) ([]int, error) {
 
 	return is, nil
 }
+
+func BinaryToInt(ss ...string) (int64, error) {
+	return strconv.ParseInt(strings.Join(ss, ""), 2, 64)
+}
+
+func TwoDimArrayFromString(s string, rowLength int) structures.TwoDimensionalStringArray {
+	var ss structures.TwoDimensionalStringArray
+	ss = append(ss, []string{})
+
+	column := 0
+	row := 0
+	for _, c := range s {
+		if column == rowLength {
+			column = 0
+			row += 1
+			ss = append(ss, []string{})
+		}
+		ss[row] = append(ss[row], string(c))
+		column += 1
+	}
+
+	return ss
+}
+
