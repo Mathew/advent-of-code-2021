@@ -1,4 +1,9 @@
-from solution import play_bingo_part_one, play_bingo_part_two, transpose_matrix, BingoCard
+from solution import (
+    BingoCard,
+    play_bingo_part_one,
+    play_bingo_part_two,
+    transpose_matrix,
+)
 
 # fmt: off
 TEST_BALLS = (
@@ -41,29 +46,60 @@ def test_play_bingo_part_two():
 
 def test_transpose_matrix():
     t = (
-        (1, 2, 3,),
-        (4, 5, 6,),
+        (
+            1,
+            2,
+            3,
+        ),
+        (
+            4,
+            5,
+            6,
+        ),
     )
-    exp = (
-        (1, 4),
-        (2, 5),
-        (3, 6)
-    )
+    exp = ((1, 4), (2, 5), (3, 6))
 
     assert transpose_matrix(t) == exp
 
 
 def test_is_a_bingo():
     card = BingoCard(TEST_CARDS[0])
-    [card.mark_call(call) for call in [8, 2, 23, 4, 24, ]]
+    [
+        card.mark_call(call)
+        for call in [
+            8,
+            2,
+            23,
+            4,
+            24,
+        ]
+    ]
     assert card.is_that_a_bingo() is True
 
     card = BingoCard(TEST_CARDS[0])
-    [card.mark_call(call) for call in [22, 8, 21, 6, 1, ]]
+    [
+        card.mark_call(call)
+        for call in [
+            22,
+            8,
+            21,
+            6,
+            1,
+        ]
+    ]
     assert card.is_that_a_bingo() is True
 
 
 def test_score():
     card = BingoCard(TEST_CARDS[0])
-    [card.mark_call(call) for call in [8, 2, 23, 4, 24, ]]
+    [
+        card.mark_call(call)
+        for call in [
+            8,
+            2,
+            23,
+            4,
+            24,
+        ]
+    ]
     assert card.score() == 5736

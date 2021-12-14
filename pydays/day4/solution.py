@@ -1,7 +1,7 @@
 import itertools
 from typing import Any, Iterable, Sequence
 
-from input import CALLS, BINGO_CARDS
+from input import BINGO_CARDS, CALLS
 
 
 class BingoCard:
@@ -69,5 +69,5 @@ def play_bingo_part_two(calls: Iterable[int], bingo_cards: tuple[tuple[tuple[int
 
 
 if __name__ == "__main__":
-    print(f'Part 1: Winning Bingo Score: {play_bingo_part_one(CALLS, BINGO_CARDS)}')
-    print(f'Part 2: Last Winning Bingo Score: {play_bingo_part_two(CALLS, BINGO_CARDS)}')
+    print(f"Part 1: Winning Bingo Score: {play_bingo_part_one(CALLS, BINGO_CARDS)}")
+    print(f"Part 2: Last Winning Bingo Score: {play_bingo_part_two(CALLS, BINGO_CARDS)}")
