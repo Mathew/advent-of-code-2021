@@ -1,9 +1,8 @@
 package converters
 
 import (
-	"advent-of-code-2021/internal/structures"
 	"github.com/pkg/errors"
-"strconv"
+	"strconv"
 	"strings"
 )
 
@@ -35,8 +34,8 @@ func BinaryToInt(ss ...string) (int64, error) {
 	return strconv.ParseInt(strings.Join(ss, ""), 2, 64)
 }
 
-func TwoDimArrayFromString(s string, rowLength int) structures.TwoDimensionalStringArray {
-	var ss structures.TwoDimensionalStringArray
+func MatrixFromString(s string, rowLength int) [][]string{
+	var ss [][]string
 	ss = append(ss, []string{})
 
 	column := 0

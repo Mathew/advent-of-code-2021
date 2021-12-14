@@ -12,12 +12,12 @@ import (
 type Diagnostic func(DiagnosticReporter) (int64, error)
 
 type DiagnosticReporter struct {
-	readings structures.TwoDimensionalStringArray
+	readings [][]string
 }
 
 func NewDiagnosticReporter(readings []string) DiagnosticReporter {
 	return DiagnosticReporter{
-		converters.TwoDimArrayFromString(
+		converters.MatrixFromString(
 			strings.Join(readings, ""),
 			len(readings[0]),
 		),
@@ -33,7 +33,7 @@ func PowerConsumptionDiagnostic(pm DiagnosticReporter) (int64, error) {
 	var epsilonBin []string
 	for i := 0; i < len(pm.readings[0]); i++ {
 		sc := counters.NewStringCounter()
-		sc.Count(pm.readings.GetColumn(i)...)
+		sc.Count(structures.GetColumn(pm.readings, i)...)
 		results := sc.Sorted()
 		gammaBin = append(gammaBin, results[0])
 		epsilonBin = append(epsilonBin, results[1])
@@ -57,9 +57,9 @@ func OxygenGeneratorDiagnostic(pm DiagnosticReporter) (int64, error) {
 
 	for i := 0; i < len(pm.readings[0]); i++ {
 		c := counters.NewStringCounter()
-		c.Count(readings.GetColumn(i)...)
+		c.Count(structures.GetColumn(readings, i)...)
 
-		readings = readings.Filter(func(s []string) bool {
+		readings = structures.Filter(readings, func(s []string) bool {
 			if c.Counts["1"] == c.Counts["0"] {
 				return s[i] == "1"
 			}
@@ -80,9 +80,9 @@ func CO2ScrubberDiagnostic(pm DiagnosticReporter) (int64, error) {
 
 	for i := 0; i < len(pm.readings[0]); i++ {
 		c := counters.NewStringCounter()
-		c.Count(readings.GetColumn(i)...)
+		c.Count(structures.GetColumn(readings, i)...)
 
-		readings = readings.Filter(func(s []string) bool {
+		readings = structures.Filter(readings, func(s []string) bool {
 			if c.Counts["1"] == c.Counts["0"] {
 				return s[i] == "0"
 			}
@@ -130,5 +130,5 @@ func main() {
 		return
 	}
 
-	log.Printf("Part Two: Life Support Rating; %d", oxygenRating * co2Rating)
+	log.Printf("Part Two: Life Support Rating; %d", oxygenRating*co2Rating)
 }
