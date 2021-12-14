@@ -1,4 +1,4 @@
-from solution import (
+from .solution import (
     BingoCard,
     play_bingo_part_one,
     play_bingo_part_two,
@@ -31,6 +31,8 @@ TEST_CARDS = (
         (2, 0, 12, 3, 7,),
     )
 )
+
+
 # fmt: on
 
 

@@ -1,7 +1,7 @@
-import itertools
+from itertools import chain
 from typing import Any, Iterable, Sequence
 
-from input import BINGO_CARDS, CALLS
+from .input import BINGO_CARDS, CALLS
 
 
 class BingoCard:
@@ -14,7 +14,7 @@ class BingoCard:
         self._card = card
         self._lines = card + transpose_matrix(card)
         self._marked_calls = []
-        self._numbers = list(itertools.chain.from_iterable(card))
+        self._numbers = list(chain.from_iterable(card))
 
     def mark_call(self, call: int):
         for line in self._lines:
