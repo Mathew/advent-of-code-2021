@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "aoc2021"
+version = "0.1.0"
+description = ""
+authors = ["Mathew Taylor <mat@mathewtaylor.co.uk>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.5"
+pytest-xdist = "^2.5.0"
+black = "^21.12b0"
+isort = "^5.10.1"
+pytest-cov = "^3.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
