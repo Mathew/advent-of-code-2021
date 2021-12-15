@@ -1,5 +1,4 @@
 import collections
-import math
 
 
 class Vector:
@@ -20,9 +19,6 @@ class Vector:
 
     def __repr__(self):
         return f"{self.__dict__.items()}"
-
-    def magnitude(self) -> float:
-        return math.sqrt(self.x ** 2 + self.y ** 2)
 
     def is_horizontal(self) -> bool:
         return self.x == 0
@@ -76,6 +72,14 @@ class HydrothermalVentMap:
             for x in range(vent.start.x, vent.end.x + vector.direction_x, vector.direction_x):
                 for y in range(vent.start.y, vent.end.y + vector.direction_y, vector.direction_y):
                     self.map[f"{x}, {y}"] += 1
+        else:
+            for loopNum, x in enumerate(range(vent.start.x, vent.end.x + vector.direction_x, vector.direction_x)):
+                if vector.direction_y > 0:
+                    y = vent.start.y + loopNum
+                else:
+                    y = vent.start.y - loopNum
+
+                self.map[f"{x}, {y}"] += 1
 
     def calculate_coincidents(self) -> int:
         return len({k: v for k, v in self.map.items() if v > 1})
@@ -94,5 +98,13 @@ if __name__ == "__main__":
             )
 
         vent_map = HydrothermalVentMap()
-        [vent_map.plot_vent(v) for v in vents]
+        [
+            vent_map.plot_vent(v)
+            for v in vents
+            if v.calculate_vector().is_horizontal() or v.calculate_vector().is_vertical()
+        ]
         print(f"Part One: {vent_map.calculate_coincidents()}")
+
+        vent_map = HydrothermalVentMap()
+        [vent_map.plot_vent(v) for v in vents]
+        print(f"Part Two: {vent_map.calculate_coincidents()}")
