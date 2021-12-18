@@ -1,4 +1,9 @@
-from .solution import Display, find_digits
+from .solution import (
+    Display,
+    calculate_display_digits,
+    find_digits,
+    solve_output_with_digits,
+)
 
 ENTRIES = (
     Display(
@@ -156,3 +161,77 @@ ENTRIES = (
 
 def test_find_digits():
     assert find_digits(ENTRIES[1]) == 3
+
+
+def test_calculate_display_digits():
+    display = Display(
+        (
+            "acedgfb",
+            "cdfbe",
+            "gcdfa",
+            "fbcad",
+            "dab",
+            "cefabd",
+            "cdfgeb",
+            "eafb",
+            "cagedb",
+            "ab",
+        ),
+        (
+            "cdfeb",
+            "fcadb",
+            "cdfeb",
+            "cdbaf",
+        ),
+    )
+
+    assert calculate_display_digits(display) == {
+        8: "acedgfb",
+        5: "cdfbe",
+        2: "gcdfa",
+        3: "fbcad",
+        7: "dab",
+        9: "cefabd",
+        6: "cdfgeb",
+        4: "eafb",
+        0: "cagedb",
+        1: "ab",
+    }
+
+
+def test_solve_output_with_digits():
+    display = Display(
+        (
+            "acedgfb",
+            "cdfbe",
+            "gcdfa",
+            "fbcad",
+            "dab",
+            "cefabd",
+            "cdfgeb",
+            "eafb",
+            "cagedb",
+            "ab",
+        ),
+        (
+            "cdfeb",
+            "fcadb",
+            "cdfeb",
+            "cdbaf",
+        ),
+    )
+
+    display_digits = {
+        8: "acedgfb",
+        5: "cdfbe",
+        2: "gcdfa",
+        3: "fbcad",
+        7: "dab",
+        9: "cefabd",
+        6: "cdfgeb",
+        4: "eafb",
+        0: "cagedb",
+        1: "ab",
+    }
+
+    assert solve_output_with_digits(display, display_digits) == 5353
