@@ -50,7 +50,7 @@ def step(octopuses: list[list[int]]) -> typing.Generator[list[list[int]], None, 
                 visited_flashed.append(f)
 
         octopi = [[0 if v > 9 else v for v in row] for row in octopi]
-        yield octopi, len(visited_flashed)
+        yield octopi, len(flashed)
 
 
 if __name__ == "__main__":
@@ -61,3 +61,13 @@ if __name__ == "__main__":
 
     os = step(octopi)
     print(f"Part One: {sum([(next(os)[1]) for _ in range(100)])}")
+
+    total_octopi = sum([len(row) for row in octopi])
+    os = step(octopi)
+    num_flashed = 0
+    step_count = 0
+    while total_octopi != num_flashed:
+        num_flashed = next(os)[1]
+        step_count += 1
+
+    print(f"Part Two: {step_count}")
